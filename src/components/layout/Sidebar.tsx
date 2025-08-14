@@ -13,7 +13,7 @@ import { Link, useLocation } from "react-router-dom";
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'PDV', href: '/pdv', icon: ShoppingCart },
-  { name: 'Produtos', href: '/produtos', icon: Package },
+  { name: 'Estoque', href: '/estoque', icon: Package },
   { name: 'Vendas', href: '/vendas', icon: BarChart3 },
   { name: 'Clientes', href: '/clientes', icon: Users },
   { name: 'Configurações', href: '/configuracoes', icon: Settings },
