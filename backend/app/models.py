@@ -1,0 +1,13 @@
+# app/models.py
+import mysql.connector
+
+def get_db_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="master100",
+        database="gestor_verde"
+    )
+
+
+    
