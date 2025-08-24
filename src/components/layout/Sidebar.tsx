@@ -1,22 +1,22 @@
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  Package,
-  ShoppingCart,
-  BarChart3,
-  Users,
+import { 
+  LayoutDashboard, 
+  Package, 
+  ShoppingCart, 
+  BarChart3, 
+  Users, 
   Settings,
-  Store,
+  Store
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Caixa", href: "/caixa", icon: ShoppingCart },
-  { name: "Estoque", href: "/estoque", icon: Package },
-  { name: "Vendas", href: "/vendas", icon: BarChart3 },
-  { name: "Clientes", href: "/clientes", icon: Users },
-  { name: "Configurações", href: "/configuracoes", icon: Settings },
+  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'PDV', href: '/pdv', icon: ShoppingCart },
+  { name: 'Estoque', href: '/estoque', icon: Package },
+  { name: 'Vendas', href: '/vendas', icon: BarChart3 },
+  { name: 'Clientes', href: '/clientes', icon: Users },
+  { name: 'Configurações', href: '/configuracoes', icon: Settings },
 ];
 
 export function Sidebar() {
@@ -65,9 +65,7 @@ export function Sidebar() {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-foreground">Admin</p>
-            <p className="text-xs text-muted-foreground truncate">
-              admin@gestoverde.com
-            </p>
+            <p className="text-xs text-muted-foreground truncate">admin@gestoverde.com</p>
           </div>
         </div>
       </div>

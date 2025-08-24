@@ -5,15 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import {
-  Search,
-  ShoppingCart,
-  Trash2,
-  Plus,
+import { 
+  Search, 
+  ShoppingCart, 
+  Trash2, 
+  Plus, 
   Minus,
   CreditCard,
   Banknote,
-  Receipt,
+  Receipt
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -31,103 +31,42 @@ interface CartItem extends Product {
 }
 
 const mockProducts: Product[] = [
-  {
-    id: "1",
-    name: "Arroz Integral 5kg",
-    price: 25.9,
-    barcode: "7891234567890",
-    category: "Grãos",
-    stock: 50,
-  },
-  {
-    id: "2",
-    name: "Feijão Preto 1kg",
-    price: 8.5,
-    barcode: "7891234567891",
-    category: "Grãos",
-    stock: 30,
-  },
-  {
-    id: "3",
-    name: "Óleo de Soja 900ml",
-    price: 6.9,
-    barcode: "7891234567892",
-    category: "Óleos",
-    stock: 25,
-  },
-  {
-    id: "4",
-    name: "Açúcar Cristal 1kg",
-    price: 4.2,
-    barcode: "7891234567893",
-    category: "Açúcar",
-    stock: 40,
-  },
-  {
-    id: "5",
-    name: "Farinha de Trigo 1kg",
-    price: 3.8,
-    barcode: "7891234567894",
-    category: "Farinhas",
-    stock: 35,
-  },
-  {
-    id: "6",
-    name: "Leite Integral 1L",
-    price: 5.5,
-    barcode: "7891234567895",
-    category: "Laticínios",
-    stock: 20,
-  },
-  {
-    id: "7",
-    name: "Pão de Forma",
-    price: 4.5,
-    barcode: "7891234567896",
-    category: "Padaria",
-    stock: 15,
-  },
-  {
-    id: "8",
-    name: "Sabonete Neutro",
-    price: 2.8,
-    barcode: "7891234567897",
-    category: "Higiene",
-    stock: 60,
-  },
+  { id: "1", name: "Arroz Integral 5kg", price: 25.90, barcode: "7891234567890", category: "Grãos", stock: 50 },
+  { id: "2", name: "Feijão Preto 1kg", price: 8.50, barcode: "7891234567891", category: "Grãos", stock: 30 },
+  { id: "3", name: "Óleo de Soja 900ml", price: 6.90, barcode: "7891234567892", category: "Óleos", stock: 25 },
+  { id: "4", name: "Açúcar Cristal 1kg", price: 4.20, barcode: "7891234567893", category: "Açúcar", stock: 40 },
+  { id: "5", name: "Farinha de Trigo 1kg", price: 3.80, barcode: "7891234567894", category: "Farinhas", stock: 35 },
+  { id: "6", name: "Leite Integral 1L", price: 5.50, barcode: "7891234567895", category: "Laticínios", stock: 20 },
+  { id: "7", name: "Pão de Forma", price: 4.50, barcode: "7891234567896", category: "Padaria", stock: 15 },
+  { id: "8", name: "Sabonete Neutro", price: 2.80, barcode: "7891234567897", category: "Higiene", stock: 60 },
 ];
 
-const Caixa = () => {
+const PDV = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [selectedPayment, setSelectedPayment] = useState<
-    "dinheiro" | "cartao" | null
-  >(null);
+  const [selectedPayment, setSelectedPayment] = useState<"dinheiro" | "cartao" | null>(null);
   const { toast } = useToast();
 
-  const filteredProducts = mockProducts.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.barcode.includes(searchTerm)
+  const filteredProducts = mockProducts.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    product.barcode.includes(searchTerm)
   );
 
   const addToCart = (product: Product) => {
-    const existingItem = cart.find((item) => item.id === product.id);
-
+    const existingItem = cart.find(item => item.id === product.id);
+    
     if (existingItem) {
       if (existingItem.quantity < product.stock) {
-        setCart(
-          cart.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          )
-        );
+        setCart(cart.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ));
       } else {
         toast({
           title: "Estoque insuficiente",
           description: `Apenas ${product.stock} unidades disponíveis`,
-          variant: "destructive",
+          variant: "destructive"
         });
       }
     } else {
@@ -141,28 +80,26 @@ const Caixa = () => {
       return;
     }
 
-    const product = mockProducts.find((p) => p.id === id);
+    const product = mockProducts.find(p => p.id === id);
     if (product && newQuantity > product.stock) {
       toast({
         title: "Estoque insuficiente",
         description: `Apenas ${product.stock} unidades disponíveis`,
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
 
-    setCart(
-      cart.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+    setCart(cart.map(item =>
+      item.id === id ? { ...item, quantity: newQuantity } : item
+    ));
   };
 
   const removeFromCart = (id: string) => {
-    setCart(cart.filter((item) => item.id !== id));
+    setCart(cart.filter(item => item.id !== id));
   };
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const finalizeSale = () => {
@@ -170,7 +107,7 @@ const Caixa = () => {
       toast({
         title: "Carrinho vazio",
         description: "Adicione produtos antes de finalizar a venda",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
@@ -179,16 +116,14 @@ const Caixa = () => {
       toast({
         title: "Forma de pagamento",
         description: "Selecione uma forma de pagamento",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
 
     toast({
       title: "Venda finalizada!",
-      description: `Total: R$ ${total.toFixed(2)} - Pagamento: ${
-        selectedPayment === "dinheiro" ? "Dinheiro" : "Cartão"
-      }`,
+      description: `Total: R$ ${total.toFixed(2)} - Pagamento: ${selectedPayment === "dinheiro" ? "Dinheiro" : "Cartão"}`,
     });
 
     // Reset
@@ -203,10 +138,8 @@ const Caixa = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Caixa</h1>
-            <p className="text-muted-foreground">
-              Interface para operadores de caixa
-            </p>
+            <h1 className="text-3xl font-bold text-foreground">PDV - Ponto de Venda</h1>
+            <p className="text-muted-foreground">Interface para operadores de caixa</p>
           </div>
           <div className="flex items-center gap-4">
             <Badge variant="outline" className="text-lg px-4 py-2">
@@ -255,9 +188,7 @@ const Caixa = () => {
                       onClick={() => addToCart(product)}
                     >
                       <div className="flex-1">
-                        <p className="font-medium text-foreground">
-                          {product.name}
-                        </p>
+                        <p className="font-medium text-foreground">{product.name}</p>
                         <div className="flex items-center gap-2 mt-1">
                           <Badge variant="outline" className="text-xs">
                             {product.category}
@@ -300,10 +231,7 @@ const Caixa = () => {
                 ) : (
                   <div className="space-y-3 max-h-64 overflow-y-auto">
                     {cart.map((item) => (
-                      <div
-                        key={item.id}
-                        className="flex items-center justify-between p-3 bg-accent/30 rounded-lg"
-                      >
+                      <div key={item.id} className="flex items-center justify-between p-3 bg-accent/30 rounded-lg">
                         <div className="flex-1">
                           <p className="font-medium text-sm">{item.name}</p>
                           <p className="text-xs text-muted-foreground">
@@ -314,21 +242,15 @@ const Caixa = () => {
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           >
                             <Minus className="w-3 h-3" />
                           </Button>
-                          <span className="w-8 text-center font-medium">
-                            {item.quantity}
-                          </span>
+                          <span className="w-8 text-center font-medium">{item.quantity}</span>
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           >
                             <Plus className="w-3 h-3" />
                           </Button>
@@ -354,9 +276,7 @@ const Caixa = () => {
               </CardHeader>
               <CardContent className="space-y-3">
                 <Button
-                  variant={
-                    selectedPayment === "dinheiro" ? "default" : "outline"
-                  }
+                  variant={selectedPayment === "dinheiro" ? "default" : "outline"}
                   className="w-full justify-start"
                   onClick={() => setSelectedPayment("dinheiro")}
                 >
@@ -385,9 +305,7 @@ const Caixa = () => {
                   <Separator />
                   <div className="flex justify-between items-center">
                     <span className="text-xl font-bold">Total:</span>
-                    <span className="text-xl font-bold text-primary">
-                      R$ {total.toFixed(2)}
-                    </span>
+                    <span className="text-xl font-bold text-primary">R$ {total.toFixed(2)}</span>
                   </div>
                   <Button
                     className="w-full h-12 text-lg"
@@ -407,4 +325,4 @@ const Caixa = () => {
   );
 };
 
-export default Caixa;
+export default PDV;
