@@ -6,7 +6,8 @@ import {
   BarChart3, 
   Users, 
   Settings,
-  Store
+  Store,
+  Box
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -14,6 +15,7 @@ const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'PDV', href: '/pdv', icon: ShoppingCart },
   { name: 'Estoque', href: '/estoque', icon: Package },
+  { name: 'Produtos', href: '/produtos', icon: Box },
   { name: 'Vendas', href: '/vendas', icon: BarChart3 },
   { name: 'Clientes', href: '/clientes', icon: Users },
   { name: 'Configurações', href: '/configuracoes', icon: Settings },
